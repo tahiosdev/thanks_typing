@@ -12,11 +12,11 @@ mvn compile exec:java
 
 ## Estructura
 
-- `src/main/java/com/thankstyping/Principal.java`: inicia la ventana.
-- `src/main/java/com/thankstyping/PanelTribunal.java`: dibuja la sala y administra teclado, tiempo y puntaje.
-- `src/main/java/com/thankstyping/CargadorGuion.java`: abre y valida los archivos JSON.
-- `src/main/java/com/thankstyping/GuionJuicio.java`: representa los datos leídos del JSON.
-- `src/main/java/com/thankstyping/LineaDialogo.java`: convierte las marcas de color en partes que el juego puede procesar.
+- `src/main/java/thankstyping/Principal.java`: inicia la ventana.
+- `src/main/java/thankstyping/PanelTribunal.java`: dibuja la sala y administra teclado, tiempo y puntaje.
+- `src/main/java/thankstyping/CargadorGuion.java`: abre y valida los archivos JSON.
+- `src/main/java/thankstyping/GuionJuicio.java`: representa los datos leídos del JSON.
+- `src/main/java/thankstyping/LineaDialogo.java`: convierte las marcas de color en partes que el juego puede procesar.
 - `assets/dialogs/juicio_demostracion.json`: diálogo de ejemplo.
 - `EXPLICACION_DEL_CODIGO.md`: explicación detallada del código y de la lógica.
 
