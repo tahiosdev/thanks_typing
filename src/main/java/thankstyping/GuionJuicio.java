@@ -5,6 +5,7 @@ package thankstyping;
 import java.util.ArrayList;
 // List permite guardar una cantidad variable de l�neas del juicio.
 import java.util.List;
+import com.google.gson.annotations.SerializedName;
 
 /** Modelo de datos que representa el guion completo cargado desde un JSON. */
 public final class GuionJuicio {
@@ -27,6 +28,9 @@ public final class GuionJuicio {
         public String texto_original;
         // Tiempo disponible para completar esta l�nea, en segundos.
         public int tiempo_limite;
+        // JSON property "break" maps here because break is reserved in Java.
+        @SerializedName("break")
+        public boolean pausaAlFinalizar;
         // Respuesta correcta para cada marca AMARILLO, seg�n el orden en el texto.
         public List<String> opciones_correctas;
     }

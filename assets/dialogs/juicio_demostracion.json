@@ -7,22 +7,23 @@
       "hablante": "Fiscal",
       "emocion": "enojado",
       "texto_original": "Yo me encontré y [ROJO:mate] a dos [VERDE:fokin] personas en la calle.",
-      "tiempo_limite": 60
+      "tiempo_limite": 15
     },
     {
       "identificador": 2,
       "hablante": "Abogado",
       "emocion": "apasionado",
       "texto_original": "Yo [VERDE:no] robé dos kilos de papa en la verdulería.",
-      "tiempo_limite": 60
+      "tiempo_limite": 15,
+      "break": true
     },
     {
       "identificador": 3,
       "hablante": "Fiscal",
       "emocion": "neutral",
-      "texto_original": "El acusado [AMARILLO:estuvo/no estuvo] en la calle Rivadavia a las 3 AM.",
-      "tiempo_limite": 60,
-      "opciones_correctas": ["no estuvo"]
+      "texto_original": "El acusado [AMARILLO:estuvo/no estuvo] en la calle Rivadavia a las 3 AM. Ademas [ROJO:no] gane en la [AMARILLO:loteria/loterius]",
+      "tiempo_limite": 20,
+      "opciones_correctas": ["no estuvo", "loterius"]
     }
   ]
 }

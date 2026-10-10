@@ -22,10 +22,12 @@ mvn compile exec:java
 
 ## Marcas del diálogo
 
-- `[ROJO:palabra]`: se muestra en rojo y hay que pulsar una tecla por cada letra. Cada tecla hace avanzar el cursor, pero la palabra solo suma como correcta si se llenó usando espacios.
+- `[ROJO:palabra]`: se muestra en rojo. En cada posición se puede escribir un espacio o el carácter visible correspondiente; solo las posiciones rellenadas con espacios cuentan como sabotaje correcto.
 - `[VERDE:palabra]`: se muestra tal como aparece en el JSON. Se puede escribir en cualquier combinación de mayúsculas y minúsculas; cada palabra solo suma como correcta si se escribió completamente en mayúsculas.
 - `[AMARILLO:opción 1/opción 2]`: permite escribir cualquiera de las alternativas. `opciones_correctas` indica cuál es la válida para el puntaje.
 
 Se pueden combinar varias marcas en una misma frase. Cada línea tiene `hablante`, `emocion`, `texto_original`, `tiempo_limite` y un `identificador`. Cada juicio tiene `identificador_juicio`, `titulo` y `lineas`.
+
+Las líneas avanzan automáticamente al completarse o agotarse el tiempo. Agregá `"break": true` en una línea si querés que se detenga y espere Enter antes de continuar; si se omite, se considera `false`.
 
 Las tildes se muestran, pero no son obligatorias al tipear. La `ñ` sí se distingue de la `n`.

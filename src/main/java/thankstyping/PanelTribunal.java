@@ -125,7 +125,6 @@ public final class PanelTribunal extends JPanel {
         entradaEsperada = linea.entradaEsperada();
         entradaEscrita.setLength(0);
         cursorEntrada = 0;
-        errores = 0;
         lineaRegistrada = false;
         esperandoSiguiente = false;
         terminado = false;
@@ -256,7 +255,21 @@ public final class PanelTribunal extends JPanel {
         repaint();
     }
 
-    /** Procesa una tecla escribible, actualiza contadores y comprueba si acabó la línea. */
+    /** Registra la linea y espera Enter solo cuando break es true en el JSON. */
+    private void terminarLinea(boolean tiempoAgotado) {
+        registrarLinea();
+        esperandoSiguiente = true;
+        if (linea.pausaAlFinalizar) {
+            estado = tiempoAgotado
+                    ? "TIEMPO AGOTADO · ENTER PARA CONTINUAR"
+                    : "LÍNEA COMPLETADA · ENTER PARA CONTINUAR";
+        } else {
+            avanzarOFinalizar();
+        }
+        repaint();
+    }
+
+    /** Procesa una tecla escribible y comprueba si se completo la linea. */
     private void procesarTecla(char caracter) {
         // No se admiten teclas si el juego está detenido, esperando Enter o sin línea válida.
         if (terminado || esperandoSiguiente || linea == null || Character.isISOControl(caracter)) return;
@@ -266,9 +279,7 @@ public final class PanelTribunal extends JPanel {
             cursorEntrada++;
             estado = "TRANSCRIBÍ EL ACTA SIN EQUIVOCARTE";
             if (lineaCompleta()) {
-                registrarLinea();
-                esperandoSiguiente = true;
-                estado = "LÍNEA COMPLETADA · ENTER PARA CONTINUAR";
+                terminarLinea(false);
             }
         } else {
             errores++;
@@ -282,8 +293,10 @@ public final class PanelTribunal extends JPanel {
         // Busca el tramo que debe recibir la próxima tecla.
         for (LineaDialogo.Tramo tramo : linea.tramos) {
             if ("OMITIR".equals(tramo.tipo)) {
-                // Rojo acepta cualquier tecla y avanza; el puntaje luego verifica si fue espacio.
+                // Rojo acepta un espacio (sabotaje) o el carácter visible correspondiente.
                 if (tramo.progreso >= tramo.entrada.length()) continue;
+                char caracterVisible = tramo.textoVisible.charAt(tramo.progreso);
+                if (tecleado != ' ' && !mismaLetra(tecleado, caracterVisible)) return false;
                 tramo.progreso++;
                 tramo.tecleado.append(tecleado);
                 return true;
@@ -404,9 +417,7 @@ public final class PanelTribunal extends JPanel {
             ultimoSegundo += tiempoTranscurrido * 1000;
             if (segundosRestantes <= 0) {
                 segundosRestantes = 0;
-                registrarLinea();
-                esperandoSiguiente = true;
-                estado = "TIEMPO AGOTADO · ENTER PARA CONTINUAR";
+                terminarLinea(true);
             }
             repaint();
         }
@@ -416,6 +427,7 @@ public final class PanelTribunal extends JPanel {
     private void reiniciarLinea() {
         caracteresCorrectos = 0;
         palabrasEspecialesCorrectas = 0;
+        errores = 0;
         iniciarLinea(0);
         requestFocusInWindow();
     }
@@ -485,7 +497,7 @@ public final class PanelTribunal extends JPanel {
         grafica.setColor(new Color(32, 31, 43)); grafica.fillRect(posicionX - 19, posicionY + 108, 14, 5); grafica.fillRect(posicionX + 5, posicionY + 108, 14, 5);
     }
 
-    /** Dibuja el papel, el hablante, el diálogo, el reloj, los contadores y el estado. */
+    /** Dibuja el papel, el hablante, el diálogo y la barra de tiempo. */
     private void dibujarActa(Graphics2D grafica) {
         // Sombra y borde oscuro bajo el papel para separarlo del escenario.
         grafica.setColor(new Color(25, 24, 31, 90)); grafica.fillRect(0, 0, ANCHO, ALTO);
@@ -498,19 +510,27 @@ public final class PanelTribunal extends JPanel {
         String hablante = linea == null ? "ACTA" : linea.hablante;
         grafica.drawString(hablante + ":", 28, 216);
         dibujarTramos(grafica, 28, 238, 568);
-        grafica.setColor(new Color(180, 161, 125)); grafica.fillRect(28, 306, 566, 1);
-        grafica.setFont(new Font("Arial", Font.BOLD, 10));
-        grafica.setColor(TINTA); grafica.drawString("TIEMPO " + segundosRestantes + "s", 28, 326);
-        grafica.setColor(new Color(177, 159, 125)); grafica.fillRect(96, 319, 150, 8);
+        if (esperandoSiguiente && linea != null && linea.pausaAlFinalizar) {
+            String indicacionEnter = "[ENTER para continuar]";
+            grafica.setFont(new Font("Arial", Font.BOLD, 9));
+            grafica.setColor(new Color(89, 68, 53));
+            int posicionTextoX = (ANCHO - grafica.getFontMetrics().stringWidth(indicacionEnter)) / 2;
+            grafica.drawString(indicacionEnter, posicionTextoX, 310);
+        }
+        int anchoBarraTotal = 566;
+        int altoBarra = 14;
+        int posicionBarraX = 28;
+        int posicionBarraY = 316;
+        // El fondo ocupa todo el espacio; el tiempo restante se encoge desde ambos extremos hacia el centro.
+        grafica.setColor(new Color(77, 62, 56));
+        grafica.fillRect(posicionBarraX, posicionBarraY, anchoBarraTotal, altoBarra);
+        double tiempoProporcional = linea == null || linea.segundos <= 0
+                ? 0.0
+                : Math.max(0.0, Math.min(1.0, segundosRestantes / (double) linea.segundos));
+        int anchoRestante = (int) (anchoBarraTotal * tiempoProporcional);
+        int posicionRestanteX = posicionBarraX + (anchoBarraTotal - anchoRestante) / 2;
         grafica.setColor(segundosRestantes <= 4 ? ROJO : VERDE);
-        int anchoBarra = linea == null ? 0 : (int) (150 * (segundosRestantes / (double) linea.segundos));
-        grafica.fillRect(96, 319, Math.max(0, anchoBarra), 8);
-        grafica.setColor(TINTA);
-        grafica.drawString("ERRORES " + errores, 270, 326);
-        int palabrasEspecialesActuales = lineaRegistrada || linea == null ? 0 : contarPalabrasEspeciales(linea, true);
-        grafica.drawString("ESPECIALES " + (palabrasEspecialesCorrectas + palabrasEspecialesActuales) + "/" + palabrasEspecialesTotales, 360, 326);
-        grafica.setColor(terminado ? (exito ? VERDE : ROJO) : new Color(89, 68, 53));
-        grafica.drawString(estado, 28, 339);
+        grafica.fillRect(posicionRestanteX, posicionBarraY, anchoRestante, altoBarra);
     }
 
     /** Dibuja los tramos del diálogo en varias líneas y coloca el punto bajo la tecla actual. */

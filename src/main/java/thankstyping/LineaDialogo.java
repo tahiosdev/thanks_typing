@@ -20,6 +20,8 @@ public final class LineaDialogo {
     public String hablante;
     public String emocion;
     public int segundos;
+    // Si es true, espera Enter al terminar esta linea.
+    public boolean pausaAlFinalizar;
     // Secuencia de tramos normales y especiales que componen el di�logo.
     public List<Tramo> tramos = new ArrayList<Tramo>();
 
@@ -57,6 +59,7 @@ public final class LineaDialogo {
         linea.hablante = origen.hablante;
         linea.emocion = origen.emocion;
         linea.segundos = origen.tiempo_limite;
+        linea.pausaAlFinalizar = origen.pausaAlFinalizar;
 
         // El patr�n encuentra cada bloque especial dentro de texto_original.
         Matcher coincidencias = PATRON_MARCA.matcher(origen.texto_original);
