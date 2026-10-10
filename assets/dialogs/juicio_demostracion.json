@@ -1,23 +1,23 @@
 {
-  "juicio_id": 1,
+  "identificador_juicio": 1,
   "titulo": "El caso de la verdulería",
   "lineas": [
     {
-      "id": 1,
+      "identificador": 1,
       "hablante": "Fiscal",
       "emocion": "enojado",
       "texto_original": "Yo me encontré y [ROJO:mate] a dos [VERDE:fokin] personas en la calle.",
       "tiempo_limite": 60
     },
     {
-      "id": 2,
+      "identificador": 2,
       "hablante": "Abogado",
       "emocion": "apasionado",
       "texto_original": "Yo [VERDE:no] robé dos kilos de papa en la verdulería.",
       "tiempo_limite": 60
     },
     {
-      "id": 3,
+      "identificador": 3,
       "hablante": "Fiscal",
       "emocion": "neutral",
       "texto_original": "El acusado [AMARILLO:estuvo/no estuvo] en la calle Rivadavia a las 3 AM.",

@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.thankstyping</groupId>
-    <artifactId>thanks-typing</artifactId>
+    <artifactId>juicio-mecanografia</artifactId>
     <version>0.1.0</version>
 
     <properties>
@@ -28,7 +28,7 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>3.3.0</version>
                 <configuration>
-                    <mainClass>com.thankstyping.Main</mainClass>
+                    <mainClass>com.thankstyping.Principal</mainClass>
                 </configuration>
             </plugin>
         </plugins>

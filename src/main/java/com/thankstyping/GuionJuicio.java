@@ -3,13 +3,13 @@ package com.thankstyping;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class DialogScript {
-    public int juicio_id;
+public final class GuionJuicio {
+    public int identificador_juicio;
     public String titulo;
-    public List<ScriptLine> lineas = new ArrayList<ScriptLine>();
+    public List<LineaGuion> lineas = new ArrayList<LineaGuion>();
 
-    public static final class ScriptLine {
-        public int id;
+    public static final class LineaGuion {
+        public int identificador;
         public String hablante;
         public String emocion;
         public String texto_original;
