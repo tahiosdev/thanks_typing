@@ -1,6 +1,7 @@
 {
   "identificador_juicio": 1,
   "titulo": "El caso de la verdulería",
+  "tildes": true,
   "lineas": [
     {
       "identificador": 1,

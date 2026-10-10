@@ -47,7 +47,7 @@ public final class CargadorGuion {
             }
             try {
                 // Tambi�n valida que las marcas ROJO/VERDE/AMARILLO se puedan interpretar.
-                LineaDialogo.crearDesde(linea);
+                LineaDialogo.crearDesde(linea, guion.tildes);
             } catch (IllegalArgumentException excepcion) {
                 // Presenta errores de formato del di�logo como errores de lectura del JSON.
                 throw new JsonParseException(excepcion.getMessage(), excepcion);

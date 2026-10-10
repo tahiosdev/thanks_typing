@@ -13,6 +13,8 @@ public final class GuionJuicio {
     public int identificador_juicio;
     // T�tulo que se muestra en la parte superior de la sala.
     public String titulo;
+    // Indica si todas las lineas del juicio requieren las tildes.
+    public boolean tildes;
     // Di�logos del juicio en el mismo orden en que se jugar�n.
     public List<LineaGuion> lineas = new ArrayList<LineaGuion>();
 

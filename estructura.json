@@ -1,0 +1,42 @@
+{
+  "identificador_juicio": 1,
+  "titulo": "El caso de los remiseros",
+  "tildes": false,
+  "lineas": [
+    
+    {
+      "identificador":  //identifica las lineas en orden (1,2,3,n), no sirve para nada en el juego, sirve por si te equivocas en escribir algo de este archivo (te falta una , o un : o "" ) el juego nos dice en que linea esta el error pa arreglarlo
+
+      "hablante":  // no hace falta explicacion
+
+      "emocion":  // (enojado / neutro / apasionado) NINGUNA EMOCION MAS
+
+      "texto_original":  // el texto en si, con [ROJO:texto] [AMARILLO:texto] [VERDE:texto]
+
+      "tiempo_limite": // tampoco hace falta explicacion
+
+      "opciones correctas":  // lista con ["opcion_correcta_1", "opcion_correcta_2", "opcion_correcta_n"] de las opciones correctas de los textos amarillos que haya (hay que ponerlas en el orden que aparecen) (si hay solo un texto amarillo hay que poner los [] igual)
+
+      "break":  // true o false, si hay break en esa linea, si no hay break podes no escribirlo directamente
+    },
+
+
+
+    {
+      "identificador": 2,
+      "hablante": "Abogado",
+      "emocion": "apasionado",
+      "texto_original": "Yo [VERDE:no] robé dos kilos de papa en la verdulería.",
+      "tiempo_limite": 15,
+      "break": true
+    },
+    {
+      "identificador": 3,
+      "hablante": "Fiscal",
+      "emocion": "neutral",
+      "texto_original": "El acusado [AMARILLO:estuvo/no estuvo] en la calle Rivadavia a las 3 AM. Ademas [ROJO:no] gane en la [AMARILLO:loteria/loterius]",
+      "tiempo_limite": 20,
+      "opciones_correctas": ["no estuvo", "loterius"]
+    }
+  ]
+}

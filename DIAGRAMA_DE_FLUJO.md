@@ -14,7 +14,7 @@ flowchart TD
     F --> G[Gson convierte JSON a GuionJuicio]
     G --> H{El guion tiene lineas y cada linea tiene datos validos?}
     H -- No --> I[Se muestra el mensaje de error y la partida queda detenida]
-    H -- Si --> J[Validar cada linea y convertirla temporalmente con LineaDialogo.crearDesde]
+    H -- Si --> J[Validar cada linea con la regla global tildes y convertirla a tramos]
     J --> K{Las marcas y opciones amarillas son validas?}
     K -- No --> I
     K -- Si --> L[PanelTribunal recorre las lineas y calcula los totales]
@@ -118,7 +118,7 @@ flowchart TD
 
 El color verde acepta que se escriba una palabra con mezcla de mayusculas y minusculas para poder seguir; al puntuar, cada palabra verde solo vale si se completo totalmente en mayusculas. En rojo cada posicion acepta un espacio o el caracter visible correspondiente, pero solo se cuentan como correctas las palabras cuyas posiciones se rellenaron todas con espacios. En amarillo se puede empezar cualquiera de las alternativas; solo la opcion indicada por `opciones_correctas` suma como correcta.
 
-Las comparaciones normales y amarillas ignoran tildes y dieresis, pero siguen comparando mayusculas y minusculas. En verde, la comparacion de avance convierte ambos caracteres a mayusculas.
+La propiedad global `tildes` del JSON controla las comparaciones normales, rojas, verdes y amarillas: con `true` se exige el mismo carácter acentuado; con `false` se ignoran tildes y diéresis. Las comparaciones siguen distinguiendo mayúsculas y minúsculas, salvo en verde, donde el avance convierte ambos caracteres a mayúsculas.
 
 ## 5. Puntaje y fin del juicio
 

@@ -52,7 +52,7 @@ public final class LineaDialogo {
     }
 
     /** Convierte la l�nea del JSON en tramos de texto que el juego puede dibujar y evaluar. */
-    public static LineaDialogo crearDesde(GuionJuicio.LineaGuion origen) {
+    public static LineaDialogo crearDesde(GuionJuicio.LineaGuion origen, boolean tildesSensibles) {
         // Crea el objeto de ejecuci�n y copia sus metadatos.
         LineaDialogo linea = new LineaDialogo();
         linea.identificador = origen.identificador;
@@ -108,8 +108,8 @@ public final class LineaDialogo {
                 }
                 for (int indice = 0; indice < tramo.opciones.size(); indice++) {
                     for (int indiceInterno = indice + 1; indiceInterno < tramo.opciones.size(); indiceInterno++) {
-                        String primera = formaDeTeclado(tramo.opciones.get(indice));
-                        String segunda = formaDeTeclado(tramo.opciones.get(indiceInterno));
+                        String primera = formaDeTeclado(tramo.opciones.get(indice), tildesSensibles);
+                        String segunda = formaDeTeclado(tramo.opciones.get(indiceInterno), tildesSensibles);
                         if (primera.startsWith(segunda) || segunda.startsWith(primera)) {
                             throw new IllegalArgumentException("Las alternativas amarillas de la l�nea " + origen.identificador
                                     + " deben poder distinguirse mientras se tipean.");
@@ -157,7 +157,8 @@ public final class LineaDialogo {
     }
 
     /** Normaliza una letra para poder comparar acentos escritos como caracteres combinados. */
-    private static String formaDeTeclado(String texto) {
+    private static String formaDeTeclado(String texto, boolean tildesSensibles) {
+        if (tildesSensibles) return texto;
         String descompuesto = Normalizer.normalize(texto, Normalizer.Form.NFD);
         return descompuesto.replace("\u0301", "").replace("\u0308", "");
     }

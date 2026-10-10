@@ -106,7 +106,7 @@ public final class PanelTribunal extends JPanel {
             // Recorre el modelo JSON para contar lo que se espera escribir y sabotear.
             for (GuionJuicio.LineaGuion origen : guion.lineas) {
                 // Convierte las marcas textuales del JSON a tramos de juego.
-                LineaDialogo lineaInterpretada = LineaDialogo.crearDesde(origen);
+                LineaDialogo lineaInterpretada = LineaDialogo.crearDesde(origen, guion.tildes);
                 caracteresTotales += lineaInterpretada.entradaEsperada().length();
                 palabrasEspecialesTotales += contarPalabrasEspeciales(lineaInterpretada, false);
             }
@@ -121,7 +121,7 @@ public final class PanelTribunal extends JPanel {
     private void iniciarLinea(int indice) {
         // Guarda la ubicación de esta línea y crea su representación ejecutable.
         indiceLinea = indice;
-        linea = LineaDialogo.crearDesde(guion.lineas.get(indice));
+        linea = LineaDialogo.crearDesde(guion.lineas.get(indice), guion.tildes);
         entradaEsperada = linea.entradaEsperada();
         entradaEscrita.setLength(0);
         cursorEntrada = 0;
@@ -346,11 +346,13 @@ public final class PanelTribunal extends JPanel {
 
     /** Compara dos caracteres después de quitar tildes y diéresis. */
     private boolean mismaLetra(char tecleado, char letraEsperada) {
+        if (guion != null && guion.tildes) return tecleado == letraEsperada;
         return sinAcento(tecleado).equals(sinAcento(letraEsperada));
     }
 
     /** Identifica marcas de acento pulsadas como teclas separadas por ciertos teclados. */
     private boolean esAcentoCombinado(char caracter) {
+        if (guion != null && guion.tildes) return false;
         int tipo = Character.getType(caracter);
         return tipo == Character.NON_SPACING_MARK || tipo == Character.COMBINING_SPACING_MARK
                 || caracter == '\u00B4' || caracter == '\u00A8';

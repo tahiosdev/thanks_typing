@@ -30,4 +30,4 @@ Se pueden combinar varias marcas en una misma frase. Cada línea tiene `hablante
 
 Las líneas avanzan automáticamente al completarse o agotarse el tiempo. Agregá `"break": true` en una línea si querés que se detenga y espere Enter antes de continuar; si se omite, se considera `false`.
 
-Las tildes se muestran, pero no son obligatorias al tipear. La `ñ` sí se distingue de la `n`.
+La propiedad `tildes` va en el objeto principal del juicio. Con `"tildes": true`, hay que escribir cada tilde como aparece; con `"tildes": false`, se acepta la letra con o sin tilde. Si se omite, se considera `false`. La `ñ` siempre se distingue de la `n`.
