@@ -208,7 +208,7 @@ public final class PanelTribunal extends JPanel {
         exito = puntaje == 100;
         terminado = true;
         esperandoSiguiente = false;
-        estado = "JUICIO TERMINADO · SABOTAJE " + puntaje + "% · ENTER PARA REPETIR";
+        estado = "JUICIO TERMINADO - SABOTAJE " + puntaje + "% - ENTER PARA REPETIR";
         repaint();
     }
 
@@ -217,8 +217,8 @@ public final class PanelTribunal extends JPanel {
         esperandoSiguiente = true;
         if (linea.pausaAlFinalizar) {
             estado = tiempoAgotado
-                    ? "TIEMPO AGOTADO · ENTER PARA CONTINUAR"
-                    : "LÍNEA COMPLETADA · ENTER PARA CONTINUAR";
+                    ? "TIEMPO AGOTADO - ENTER PARA CONTINUAR"
+                    : "LÍNEA COMPLETADA - ENTER PARA CONTINUAR";
         } else {
             avanzarOFinalizar();
         }
