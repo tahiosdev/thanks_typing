@@ -1,0 +1,260 @@
+{
+  "identificador_juicio": 1,
+  "titulo": "Asesinato Lomba Juicio 1",
+  "tildes": false,
+  "lineas": [
+
+    {
+      "identificador": 1,
+      "hablante": "Secretario",
+      "emocion": "neutro",
+      "texto_original": "Entonces repasamos aquellos presentes... ¿Piter?",
+      "tiempo_limite": 16,
+      "break":true
+    },
+
+    {
+      "identificador": 2,
+      "hablante": "Piter",
+      "emocion": "neutro",
+      "texto_original": "Presente.",
+      "tiempo_limite": 6,
+      "break": true
+    },
+
+    {
+      "identificador": 3,
+      "hablante": "Secretario",
+      "emocion": "neutro",
+      "texto_original": "¿Zaul Badman?",
+      "tiempo_limite": 10
+    },
+
+    {
+      "identificador": 4,
+      "hablante": "Zaul Badman",
+      "emocion": "neutro",
+      "texto_original": "Presente.",
+      "tiempo_limite": 6
+    },
+
+    {
+      "identificador": 5,
+      "hablante": "Secretario",
+      "emocion": "neutro",
+      "texto_original": "¿Jonas Gúzmann?",
+      "tiempo_limite": 11
+    },
+
+    {
+      "identificador": 6,
+      "hablante": "Tú",
+      "emocion": "neutro",
+      "texto_original": "Presente.",
+      "tiempo_limite": 6
+    },
+
+    {
+      "identificador": 7,
+      "hablante": "Secretario",
+      "emocion": "neutro",
+      "texto_original": "Asi entonces, damos por comenzada la sesión.",
+      "tiempo_limite": 14,
+      "break": true
+    },
+
+    {
+      "identificador": 8,
+      "hablante": "Zaul Badman",
+      "emocion": "neutro",
+      "texto_original": "Se abre la causa contra Jonas Gúzmann, al cual se lo acusa contra los cargos de:",
+      "tiempo_limite": 20
+    },
+
+    {
+      "identificador": 9,
+      "hablante": "Zaul Badman",
+      "emocion": "neutro",
+      "texto_original": "Portacion ilegitima de armas de fuego [VERDE:de juguete]",
+      "tiempo_limite":17
+    },
+
+    {
+      "identificador": 10,
+      "hablante": "Zaul Badman",
+      "emocion": "neutro",
+      "texto_original": "e intento de homicidio [ROJO:a mano armada] [VERDE:a base de legitima defensa.]",
+      "tiempo_limite":30,
+      "break": true
+    },
+
+    {
+      "identificador": 11,
+      "hablante": "Piter",
+      "emocion": "enojado",
+      "texto_original": "Objecion secretario, todo lo que dijo [ROJO:es nada que ver][VERDE: son falacias.]",
+      "tiempo_limite":24
+    },
+
+    {
+      "identificador": 12,
+      "hablante": "Piter",
+      "emocion": "neutro",
+      "texto_original": "Mi acusado, de nada se declara culpable, y podemos demostrarlo.",
+      "tiempo_limite": 15,
+      "break":true
+    },
+
+    {
+      "identificador": 13,
+      "hablante": "Zaul Badman",
+      "emocion": "neutro",
+      "texto_original": "Entonces, ¿podria usted decirme donde se encontraba el señor Jonas el ultimo 6/7?",
+      "tiempo_limite": 18,
+      "break":true
+    },
+
+    {
+      "identificador": 14,
+      "hablante": "Piter",
+      "emocion": "pensativo",
+      "texto_original": "El 6/7 se encontraba [AMARILLO:en la puerta del kiosco lomba/en su casa]",
+      "tiempo_limite":21,
+      "opciones_correctas": ["en su casa"]
+    },
+
+    {
+      "identificador": 15,
+      "hablante": "Piter",
+      "emocion": "pensativo",
+      "texto_original": "tranquilo, junto con una de sus amigas, viendo peliculas",
+      "tiempo_limite":10
+    },
+
+        {
+      "identificador": 16,
+      "hablante": "Zaul Badman",
+      "emocion": "neutro",
+      "texto_original": "Entonces, podria el mismo Jonas decirme que tipo de peliculas estaba viendo?",
+      "tiempo_limite":14
+    },
+
+        {
+      "identificador": 17,
+      "hablante": "Piter",
+      "emocion": "neutro",
+      "texto_original": "Claro, procedé [ROJO: amigo dale].",
+      "tiempo_limite":10
+    },
+
+        {
+      "identificador": 18,
+      "hablante": "Tú",
+      "emocion": "pensativo",
+      "texto_original": "Si no mal recuerdo, eran peliculas [AMARILLO: porno/de comedia]",
+      "tiempo_limite":11,
+      "opciones_correctas": ["de comedia"]
+    },
+
+        {
+      "identificador": 19,
+      "hablante": "Zaul Badman",
+      "emocion": "pensativo",
+      "texto_original": "Entiendo,[VERDE: che] entonces secretario, como es que murio el señor Lombardi?",
+      "tiempo_limite":14,
+      "break":true
+    },
+
+        {
+      "identificador": 20,
+      "hablante": "Secretario",
+      "emocion": "neutro",
+      "texto_original": "Lamento decirle señor Badman",
+      "tiempo_limite":8
+    },
+
+        {
+      "identificador": 21,
+      "hablante": "Secretario",
+      "emocion": "neutro",
+      "texto_original": "Pero no es en este juicio donde podremos contestarle.",
+      "tiempo_limite":10
+    },
+
+        {
+      "identificador": 22,
+      "hablante": "Secretario",
+      "emocion": "neutro",
+      "texto_original": "Asi que, al parecer y si nadie mas tiene algo que decir",
+      "tiempo_limite":10
+    },
+
+        {
+      "identificador": 23,
+      "hablante": "Secretario",
+      "emocion": "neutro",
+      "texto_original": "damos por terminada esta sesion.",
+      "tiempo_limite":10
+    },
+
+        {
+      "identificador": 24,
+      "hablante": "Piter",
+      "emocion": "enojado",
+      "texto_original": "[ROJO: BIEN DIOS][VERDE:Perfecto], Aunque debo decir que ya se sabia que mi acusado era inocente",
+      "tiempo_limite":19
+    },
+
+        {
+      "identificador": 25,
+      "hablante": "Zaul Badman",
+      "emocion": "enojado",
+      "texto_original": "Piter [VERDE: forro], los dos sabemos que tu cliente es culpable",
+      "tiempo_limite":14
+    },
+    
+        {
+      "identificador": 26,
+      "hablante": "Zaul Badman",
+      "emocion": "enojado",
+      "texto_original": "Tenes suerte de que aca no este el [VERDE: bobo del] juez.",
+      "tiempo_limite":14
+    },
+
+    
+        {
+      "identificador": 27,
+      "hablante": "Piter",
+      "emocion": "neutro",
+      "texto_original": "[ROJO: Te re cabio] No puedo hacer nada, son cosas de la vida Zaul",
+      "tiempo_limite":12
+    },
+
+        {
+      "identificador": 28,
+      "hablante": "Zaul Badman",
+      "emocion": "enojado",
+      "texto_original": "JONAS [AMARILLO: ES CULPABLE/ES INOCENTE] Y TODOS LO SABEMOS",
+      "tiempo_limite":14,
+      "opciones_correctas": ["ES INOCENTE"]
+    },
+
+        {
+      "identificador": 29,
+      "hablante": "Zaul Badman",
+      "emocion": "enojado",
+      "texto_original": "HIJO DE P***, NO VAS A PAS-",
+      "tiempo_limite":14
+
+    },
+
+        {
+      "identificador": 30,
+      "hablante": "Secretario",
+      "emocion": "enojado",
+      "texto_original": "¡ORDEN!",
+      "tiempo_limite":7,
+      "break":true
+    }
+  ]
+}

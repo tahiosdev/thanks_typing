@@ -1,0 +1,212 @@
+{
+  "identificador_juicio": 2,
+  "titulo": "Venganza Lombardi Juicio 2",
+  "tildes": true,
+  "lineas": [
+    {
+      "identificador": 1,
+      "hablante": "Secretario",
+      "emocion": "neutro",
+      "texto_original": "Damos inicio al segundo juicio del caso ¿Presentes?",
+      "tiempo_limite": 16,
+      "break": true
+    },
+    {
+      "identificador": 2,
+      "hablante": "Piter",
+      "emocion": "neutro",
+      "texto_original": "Presente.",
+      "tiempo_limite": 6
+    },
+    {
+      "identificador": 3,
+      "hablante": "Zaul Badman",
+      "emocion": "neutro",
+      "texto_original": "Presente.",
+      "tiempo_limite": 6
+    },
+    {
+      "identificador": 4,
+      "hablante": "Franco Lombardi",
+      "emocion": "enojado",
+      "texto_original": "Presente.",
+      "tiempo_limite": 6
+    },
+    {
+      "identificador": 5,
+      "hablante": "Tú",
+      "emocion": "neutro",
+      "texto_original": "Presente.",
+      "tiempo_limite": 6
+    },
+    {
+      "identificador": 6,
+      "hablante": "Secretario",
+      "emocion": "neutro",
+      "texto_original": "Comenzamos. El juez sigue ausente, asi que registren todo al pie de la letra.",
+      "tiempo_limite": 16,
+      "break": true
+    },
+    {
+      "identificador": 7,
+      "hablante": "Piter",
+      "emocion": "neutro",
+      "texto_original": "Se abre la causa contra Franco Lombardi [VERDE:por intento de asesinato] [ROJO:medio raro]",
+      "tiempo_limite": 12
+    },
+    {
+      "identificador": 8,
+      "hablante": "Piter",
+      "emocion": "enojado",
+      "texto_original": "y por una emboscada [VERDE:premeditada y a traicion.]",
+      "tiempo_limite": 12,
+      "break": true
+    },
+    {
+      "identificador": 9,
+      "hablante": "Zaul Badman",
+      "emocion": "enojado",
+      "texto_original": "¡Objecion! Mi cliente solo actuo en [AMARILLO: un estado violento/defensa propia]",
+      "tiempo_limite": 22,
+      "opciones_correctas": ["un estado violento"]
+    },
+    {
+      "identificador": 10,
+      "hablante": "Zaul Badman",
+      "emocion": "pensativo",
+      "texto_original": "luego de ver a su padre en coma [ROJO:hace rato] durante dos meses completos.",
+      "tiempo_limite": 14,
+      "break": true
+    },
+    {
+      "identificador": 11,
+      "hablante": "Franco Lombardi",
+      "emocion": "enojado",
+      "texto_original": "¡Es verdad! ¡Yo fui a buscar a Jonas para [AMARILLO: hablar tranquilamente/reventarlo a trompadas]!",
+      "tiempo_limite": 20,
+      "opciones_correctas": ["reventarlo a trompadas"]
+    },
+    {
+      "identificador": 12,
+      "hablante": "Zaul Badman",
+      "emocion": "pensativo",
+      "texto_original": "¡Callate Franco! [VERDE: ¿sos tarado?] Queremos demostrar que fue una coincidencia.",
+      "tiempo_limite": 18
+    },
+    {
+      "identificador": 13,
+      "hablante": "Piter",
+      "emocion": "neutro",
+      "texto_original": "No fue coincidencia. Franco estaba [AMARILLO: Con un cuchillo/a puño limpio]",
+      "tiempo_limite": 18,
+      "opciones_correctas": ["con un cuchillo"],
+      "break": true
+    },
+    {
+      "identificador": 14,
+      "hablante": "Zaul Badman",
+      "emocion": "pensativo",
+      "texto_original": "Señor Jonas, ¿podria explicarnos como escapo si segun usted fue agredido?",
+      "tiempo_limite": 18
+    },
+    {
+      "identificador": 15,
+      "hablante": "Tú",
+      "emocion": "pensativo",
+      "texto_original": "Simplemente me defendí usando [AMARILLO: un arma/lo piola que soy esquivando.]",
+      "tiempo_limite": 16,
+      "opciones_correctas": ["lo piola que soy esquivando."]
+    },
+    {
+      "identificador": 16,
+      "hablante": "Tú",
+      "emocion": "neutro",
+      "texto_original": "mientras el señor Franco [VERDE:gritaba] tropezó solo contra la vereda.",
+      "tiempo_limite": 16,
+      "break": true
+    },
+    {
+      "identificador": 17,
+      "hablante": "Franco Lombardi",
+      "emocion": "enojado",
+      "texto_original": "¡Mentira! ¡Te quise [AMARILLO: pedir disculpas/dar un piñon] [VERDE:a traición] y me esquivaste!",
+      "tiempo_limite": 18,
+      "opciones_correctas": ["dar un piñon"]
+    },
+    {
+      "identificador": 18,
+      "hablante": "Piter",
+      "emocion": "neutro",
+      "texto_original": "El propio acusado confeso su terrible crimen ante la sala.",
+      "tiempo_limite": 18,
+      "break": true
+    },
+    {
+      "identificador": 19,
+      "hablante": "Zaul Badman",
+      "emocion": "enojado",
+      "texto_original": "Exijo una pausa para hablar con mi cliente.",
+      "tiempo_limite": 14
+    },
+    {
+      "identificador": 20,
+      "hablante": "Secretario",
+      "emocion": "neutro",
+      "texto_original": "Pausa denegada, señor Badman.",
+      "tiempo_limite": 8
+    },
+    {
+      "identificador": 21,
+      "hablante": "Secretario",
+      "emocion": "neutro",
+      "texto_original": "Las pruebas escritas por el mecanografo son concluyentes.",
+      "tiempo_limite": 12,
+      "break": true
+    },
+    {
+      "identificador": 22,
+      "hablante": "Piter",
+      "emocion": "pensativo",
+      "texto_original": "Por lo tanto, queda claro que Franco Lombardi [AMARILLO: ES INOCENTE/ES TOTALMENTE CULPABLE]",
+      "tiempo_limite": 13,
+      "opciones_correctas": ["ES TOTALMENTE CULPABLE"]
+    },
+    {
+      "identificador": 23,
+      "hablante": "Piter",
+      "emocion": "neutro",
+      "texto_original": "por intento de homicidio [VERDE:y peligro para la sociedad.]",
+      "tiempo_limite": 12
+    },
+    {
+      "identificador": 24,
+      "hablante": "Franco Lombardi",
+      "emocion": "enojado",
+      "texto_original": "¡Esto no se va a quedar asi!",
+      "tiempo_limite": 12
+    },
+    {
+      "identificador": 25,
+      "hablante": "Zaul Badman",
+      "emocion": "enojado",
+      "texto_original": "Franco [VERDE: sos un idiota], nos hundiste a los dos.",
+      "tiempo_limite": 12
+    },
+    {
+      "identificador": 26,
+      "hablante": "Secretario",
+      "emocion": "neutro",
+      "texto_original": "Se envia el acta transcripta al juez. Caso cerrado.",
+      "tiempo_limite": 12,
+      "break": true
+    },
+    {
+      "identificador": 27,
+      "hablante": "Secretario",
+      "emocion": "enojado",
+      "texto_original": "¡ORDEN EN LA SALA!",
+      "tiempo_limite": 9,
+      "break": true
+    }
+  ]
+}
