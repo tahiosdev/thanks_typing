@@ -23,7 +23,8 @@ public final class Principal {
             PanelMenu menu = new PanelMenu(
                     () -> abrirNivel(contenido, tarjetas, 1),
                     () -> abrirNivel(contenido, tarjetas, 2),
-                    () -> abrirTutorial(contenido, tarjetas));
+                    () -> abrirTutorial(contenido, tarjetas),
+                    () -> System.exit(0));
             contenido.add(menu, "menu");
             ventana.setContentPane(contenido);
             ventana.addWindowListener(new WindowAdapter() {

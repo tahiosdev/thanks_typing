@@ -22,7 +22,7 @@ public final class PanelMenu extends JPanel {
     private static final Color PAPEL = new Color(239, 221, 176);
     private static final Color DORADO = new Color(199, 165, 111);
 
-    public PanelMenu(Runnable nivelUno, Runnable nivelDos, Runnable controles) {
+    public PanelMenu(Runnable nivelUno, Runnable nivelDos, Runnable controles, Runnable salir) {
         setOpaque(true);
         setLayout(new GridBagLayout());
 
@@ -60,6 +60,12 @@ public final class PanelMenu extends JPanel {
         restriccion.gridy = 2;
         restriccion.insets = new Insets(14, 0, 0, 0);
         contenido.add(botonControles, restriccion);
+
+        JButton botonSalir = crearBoton("SALIR", "");
+        botonSalir.addActionListener(evento -> salir.run());
+        restriccion.gridy = 3;
+        restriccion.insets = new Insets(10, 0, 0, 0);
+        contenido.add(botonSalir, restriccion);
 
         add(contenido, new GridBagConstraints());
     }
