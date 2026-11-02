@@ -10,6 +10,9 @@ public final class GuionJuicio {
     public int identificador_juicio;
     public String titulo;
     public boolean tildes;
+    public List<String> historia = new ArrayList<String>();
+    /** Posición (desde 1) del texto de historia que comienza a usar la segunda imagen. */
+    public int segunda_imagen_desde = 2;
     public List<LineaGuion> lineas = new ArrayList<LineaGuion>();
 
     public static final class LineaGuion {

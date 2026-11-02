@@ -2,6 +2,7 @@ package thankstyping;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
+import javax.swing.JOptionPane;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -13,10 +14,13 @@ import java.awt.RenderingHints;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
-import java.nio.file.Paths;
+import javax.imageio.ImageIO;
 
 public final class PanelTribunal extends JPanel {
 
@@ -33,6 +37,19 @@ public final class PanelTribunal extends JPanel {
     private static final Color AMARILLO_OSCURO = new Color(142, 95, 20);
     private final BufferedImage lienzo = new BufferedImage(ANCHO, ALTO, BufferedImage.TYPE_INT_ARGB);
     private final Timer temporizador;
+    private final SonidosJuego sonidos = new SonidosJuego();
+    private final Path rutaGuion;
+    private final Path[] rutasImagenes;
+    private final Runnable volverAlMenu;
+    private BufferedImage[] imagenesHistoria;
+    private BufferedImage abogadoFavorNeutro;
+    private BufferedImage abogadoFavorEnojado;
+    private BufferedImage abogadoFavorPensativo;
+    private BufferedImage abogadoContraNeutro;
+    private BufferedImage abogadoContraEnojado;
+    private BufferedImage abogadoContraPensativo;
+    private int indiceHistoria;
+    private boolean mostrandoHistoria;
     private GuionJuicio guion;
     private LineaDialogo linea;
     private int indiceLinea;
@@ -50,9 +67,13 @@ public final class PanelTribunal extends JPanel {
     private boolean exito;
     private String estado = "CARGANDO ACTA...";
     private int errores;
+    private int teclasAceptadas;
     private final StringBuilder entradaEscrita = new StringBuilder();
 
-    public PanelTribunal() {
+    public PanelTribunal(Path rutaGuion, Path[] rutasImagenes, Runnable volverAlMenu) {
+        this.rutaGuion = rutaGuion;
+        this.rutasImagenes = rutasImagenes == null ? new Path[0] : rutasImagenes.clone();
+        this.volverAlMenu = volverAlMenu;
         setFocusable(true);
         setPreferredSize(new Dimension(ANCHO * 2, ALTO * 2));
         setBackground(Color.BLACK);
@@ -60,7 +81,12 @@ public final class PanelTribunal extends JPanel {
         addKeyListener(new KeyAdapter() {
             @Override public void keyTyped(KeyEvent evento) { procesarTecla(evento.getKeyChar()); }
             @Override public void keyPressed(KeyEvent evento) {
-                if (evento.getKeyCode() == KeyEvent.VK_BACK_SPACE && !terminado && !esperandoSiguiente && cursorEntrada > 0) {
+                if (evento.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                    sonidos.detenerMusica();
+                    volverAlMenu.run();
+                } else if (mostrandoHistoria && evento.getKeyCode() == KeyEvent.VK_ENTER) {
+                    avanzarHistoria();
+                } else if (evento.getKeyCode() == KeyEvent.VK_BACK_SPACE && !terminado && !esperandoSiguiente && cursorEntrada > 0) {
                     entradaEscrita.setLength(entradaEscrita.length() - 1);
                     reconstruirProgreso();
                     repaint();
@@ -75,7 +101,7 @@ public final class PanelTribunal extends JPanel {
 
     private void cargarGuion() {
         try {
-            guion = CargadorGuion.cargar(Paths.get("assets", "dialogs", "juicio_demostracion.json"));
+            guion = CargadorGuion.cargar(rutaGuion);
             caracteresTotales = 0;
             palabrasEspecialesTotales = 0;
             for (GuionJuicio.LineaGuion origen : guion.lineas) {
@@ -83,7 +109,16 @@ public final class PanelTribunal extends JPanel {
                 caracteresTotales += lineaInterpretada.entradaEsperada().length();
                 palabrasEspecialesTotales += contarPalabrasEspeciales(lineaInterpretada, false);
             }
-            iniciarLinea(0);
+            cargarImagenesHistoria();
+            cargarSpritesAbogados();
+            sonidos.iniciarMusica();
+            mostrandoHistoria = guion.historia != null && !guion.historia.isEmpty();
+            indiceHistoria = 0;
+            if (mostrandoHistoria) {
+                estado = "HISTORIA - ENTER PARA CONTINUAR";
+            } else {
+                iniciarLinea(0);
+            }
         } catch (Exception exception) {
             estado = "ERROR AL CARGAR EL JSON: " + exception.getMessage();
             terminado = true;
@@ -102,7 +137,49 @@ public final class PanelTribunal extends JPanel {
         segundosRestantes = linea.segundos;
         ultimoSegundo = System.currentTimeMillis();
         estado = "TRANSCRIBÍ EL ACTA SIN EQUIVOCARTE";
+        reproducirSonidoEmocion();
         repaint();
+    }
+
+    private void cargarImagenesHistoria() throws IOException {
+        imagenesHistoria = new BufferedImage[rutasImagenes.length];
+        for (int indice = 0; indice < rutasImagenes.length; indice++) {
+            imagenesHistoria[indice] = ImageIO.read(rutasImagenes[indice].toFile());
+        }
+    }
+
+    private void cargarSpritesAbogados() {
+        abogadoFavorNeutro = cargarSprite("abogadoafavorneutro.png");
+        abogadoFavorEnojado = cargarSprite("Abogadoafavorenojado.png");
+        abogadoFavorPensativo = cargarSprite("Abogadoafavorpensativo.png");
+        abogadoContraNeutro = cargarSprite("abogadoencontraneutro.png");
+        abogadoContraEnojado = cargarSprite("abogadoencontraenojado.png");
+        abogadoContraPensativo = cargarSprite("Abogadoencontrapensativo.png");
+    }
+
+    private BufferedImage cargarSprite(String archivo) {
+        try {
+            return ImageIO.read(Paths.get("assets", "sprites", "Abogados png", archivo).toFile());
+        } catch (IOException excepcion) {
+            return null;
+        }
+    }
+
+    private void avanzarHistoria() {
+        sonidos.pagina();
+        indiceHistoria++;
+        if (indiceHistoria >= guion.historia.size()) {
+            mostrandoHistoria = false;
+            iniciarLinea(0);
+        } else {
+            repaint();
+        }
+    }
+
+    private void reproducirSonidoEmocion() {
+        if (linea == null || linea.emocion == null) return;
+        if ("enojado".equalsIgnoreCase(linea.emocion)) sonidos.abogadoEnojado();
+        else if ("pensativo".equalsIgnoreCase(linea.emocion)) sonidos.abogadoPensativo();
     }
 
     private void registrarLinea() {
@@ -205,17 +282,25 @@ public final class PanelTribunal extends JPanel {
             return;
         }
         int puntaje = caracteresTotales == 0 ? 0 : caracteresCorrectos * 100 / caracteresTotales;
-        exito = puntaje == 100;
+        int precision = teclasAceptadas + errores == 0 ? 100
+                : teclasAceptadas * 100 / (teclasAceptadas + errores);
+        exito = precision > 85 && puntaje > 85;
         terminado = true;
         esperandoSiguiente = false;
-        estado = "JUICIO TERMINADO - SABOTAJE " + puntaje + "% - ENTER PARA REPETIR";
-        repaint();
+        sonidos.detenerMusica();
+        JOptionPane.showMessageDialog(this,
+                (exito ? "GANASTE" : "PERDISTE") + "\n\n"
+                + "Precisi\u00f3n de escritura: " + precision + "%\n"
+                + "Sabotaje exitoso: " + puntaje + "%",
+                "Resultado del juicio", JOptionPane.INFORMATION_MESSAGE);
+        volverAlMenu.run();
     }
 
     private void terminarLinea(boolean tiempoAgotado) {
         registrarLinea();
         esperandoSiguiente = true;
         if (linea.pausaAlFinalizar) {
+            sonidos.pagina();
             estado = tiempoAgotado
                     ? "TIEMPO AGOTADO - ENTER PARA CONTINUAR"
                     : "LÍNEA COMPLETADA - ENTER PARA CONTINUAR";
@@ -229,6 +314,8 @@ public final class PanelTribunal extends JPanel {
         if (terminado || esperandoSiguiente || linea == null || Character.isISOControl(caracter)) return;
         if (esAcentoCombinado(caracter)) return;
         if (aplicarCaracter(caracter)) {
+            sonidos.tecla();
+            teclasAceptadas++;
             entradaEscrita.append(caracter);
             cursorEntrada++;
             estado = "TRANSCRIBÍ EL ACTA SIN EQUIVOCARTE";
@@ -237,6 +324,7 @@ public final class PanelTribunal extends JPanel {
             }
         } else {
             errores++;
+            sonidos.error();
             estado = "ERROR DE TIPEO \u00B7 REVIS\u00C1 LA PR\u00D3XIMA LETRA";
         }
         repaint();
@@ -370,6 +458,7 @@ public final class PanelTribunal extends JPanel {
         caracteresCorrectos = 0;
         palabrasEspecialesCorrectas = 0;
         errores = 0;
+        teclasAceptadas = 0;
         iniciarLinea(0);
         requestFocusInWindow();
     }
@@ -379,8 +468,12 @@ public final class PanelTribunal extends JPanel {
         Graphics2D grafica = lienzo.createGraphics();
         grafica.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
         grafica.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-        dibujarSala(grafica);
-        dibujarActa(grafica);
+        if (mostrandoHistoria) {
+            dibujarHistoria(grafica);
+        } else {
+            dibujarSala(grafica);
+            dibujarActa(grafica);
+        }
         grafica.dispose();
         Graphics2D pantalla = (Graphics2D) graficos.create();
         pantalla.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);
@@ -392,6 +485,47 @@ public final class PanelTribunal extends JPanel {
         int posicionY = (getHeight() - altoDibujo) / 2;
         pantalla.drawImage(lienzo, posicionX, posicionY, anchoDibujo, altoDibujo, null);
         pantalla.dispose();
+    }
+
+    private void dibujarHistoria(Graphics2D grafica) {
+        grafica.setColor(new Color(20, 22, 31));
+        grafica.fillRect(0, 0, ANCHO, ALTO);
+        int comienzoSegundaImagen = Math.max(1, guion.segunda_imagen_desde) - 1;
+        int indiceImagen = indiceHistoria >= comienzoSegundaImagen ? 1 : 0;
+        BufferedImage imagen = imagenesHistoria == null || imagenesHistoria.length == 0
+                ? null : imagenesHistoria[Math.min(indiceImagen, imagenesHistoria.length - 1)];
+        if (imagen != null) {
+            double escala = Math.min(ANCHO / (double) imagen.getWidth(), 226.0 / imagen.getHeight());
+            int ancho = (int) (imagen.getWidth() * escala);
+            int alto = (int) (imagen.getHeight() * escala);
+            grafica.drawImage(imagen, (ANCHO - ancho) / 2, 0, ancho, alto, null);
+        }
+        grafica.setColor(new Color(41, 31, 35));
+        grafica.fillRect(12, 230, 616, 118);
+        grafica.setColor(PAPEL);
+        grafica.fillRect(18, 237, 604, 101);
+        grafica.setFont(new Font("Arial", Font.PLAIN, 13));
+        grafica.setColor(new Color(89, 68, 53));
+        dibujarParrafo(grafica, guion.historia.get(indiceHistoria), 28, 258, 568);
+        String continuar = "[ENTER para continuar]";
+        int x = (ANCHO - grafica.getFontMetrics().stringWidth(continuar)) / 2;
+        grafica.drawString(continuar, x, 326);
+    }
+
+    private void dibujarParrafo(Graphics2D grafica, String texto, int x, int y, int ancho) {
+        grafica.setFont(new Font("Arial", Font.PLAIN, 13));
+        FontMetrics metricas = grafica.getFontMetrics();
+        int actualX = x;
+        int actualY = y;
+        for (String palabra : texto.split("\\s+")) {
+            int anchoPalabra = metricas.stringWidth(palabra + " ");
+            if (actualX + anchoPalabra > x + ancho) {
+                actualX = x;
+                actualY += 18;
+            }
+            grafica.drawString(palabra, actualX, actualY);
+            actualX += anchoPalabra;
+        }
     }
 
     private void dibujarSala(Graphics2D grafica) {
@@ -411,8 +545,7 @@ public final class PanelTribunal extends JPanel {
         grafica.setColor(new Color(186, 159, 113)); grafica.fillRect(290, 81, 60, 5);
         grafica.setColor(new Color(126, 99, 81)); grafica.fillRect(246, 147, 148, 13);
         grafica.setColor(new Color(83, 50, 43)); grafica.fillRect(255, 160, 130, 24);
-        dibujarPersona(grafica, 61, 111, new Color(48, 69, 91), new Color(206, 157, 126), new Color(39, 38, 49));
-        dibujarPersona(grafica, 512, 111, new Color(88, 51, 57), new Color(196, 143, 113), new Color(42, 37, 45));
+        dibujarAbogados(grafica);
         grafica.setColor(new Color(245, 198, 112)); grafica.fillRect(97, 47, 5, 7); grafica.fillRect(538, 47, 5, 7);
         grafica.setFont(new Font("Arial", Font.BOLD, 10));
         grafica.setColor(new Color(221, 205, 173));
@@ -430,6 +563,35 @@ public final class PanelTribunal extends JPanel {
         grafica.setColor(new Color(221, 204, 177)); grafica.fillRect(posicionX - 4, posicionY + 49, 8, 21);
         grafica.setColor(new Color(110, 69, 70)); grafica.fillRect(posicionX, posicionY + 49, 2, 29);
         grafica.setColor(new Color(32, 31, 43)); grafica.fillRect(posicionX - 19, posicionY + 108, 14, 5); grafica.fillRect(posicionX + 5, posicionY + 108, 14, 5);
+    }
+
+    private void dibujarAbogados(Graphics2D grafica) {
+        String emocionFavor = "neutro";
+        String emocionContra = "neutro";
+        if (linea != null && "Piter".equalsIgnoreCase(linea.hablante)) emocionFavor = linea.emocion;
+        if (linea != null && "Zaul Badman".equalsIgnoreCase(linea.hablante)) emocionContra = linea.emocion;
+        dibujarSprite(grafica, spriteContra(emocionContra), 30, 15, 180, 175);
+        dibujarSprite(grafica, spriteFavor(emocionFavor), 430, 15, 180, 175);
+    }
+
+    private BufferedImage spriteFavor(String emocion) {
+        if ("enojado".equalsIgnoreCase(emocion)) return abogadoFavorEnojado;
+        if ("pensativo".equalsIgnoreCase(emocion)) return abogadoFavorPensativo;
+        return abogadoFavorNeutro;
+    }
+
+    private BufferedImage spriteContra(String emocion) {
+        if ("enojado".equalsIgnoreCase(emocion)) return abogadoContraEnojado;
+        if ("pensativo".equalsIgnoreCase(emocion)) return abogadoContraPensativo;
+        return abogadoContraNeutro;
+    }
+
+    private void dibujarSprite(Graphics2D grafica, BufferedImage sprite, int x, int y, int anchoMaximo, int altoMaximo) {
+        if (sprite == null) return;
+        double escala = Math.min(anchoMaximo / (double) sprite.getWidth(), altoMaximo / (double) sprite.getHeight());
+        int ancho = (int) (sprite.getWidth() * escala);
+        int alto = (int) (sprite.getHeight() * escala);
+        grafica.drawImage(sprite, x + (anchoMaximo - ancho) / 2, y + altoMaximo - alto, ancho, alto, null);
     }
 
     private void dibujarActa(Graphics2D grafica) {

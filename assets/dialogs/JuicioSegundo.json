@@ -2,6 +2,11 @@
   "identificador_juicio": 2,
   "titulo": "Venganza Lombardi Juicio 2",
   "tildes": true,
+  "historia": [
+    "Despues del primer juicio, Franco Lombardi busca vengarse de Jonas. El segundo caso vuelve a la sala sin un juez que pueda poner orden.",
+    "Esta vez las declaraciones son aun mas peligrosas. Como mecanografo, tus decisiones en el acta seran parte de la evidencia final."
+  ],
+  "segunda_imagen_desde": 2,
   "lineas": [
     {
       "identificador": 1,
@@ -99,7 +104,7 @@
       "emocion": "neutro",
       "texto_original": "No fue coincidencia. Franco estaba [AMARILLO: Con un cuchillo/a puño limpio]",
       "tiempo_limite": 18,
-      "opciones_correctas": ["con un cuchillo"],
+      "opciones_correctas": ["Con un cuchillo"],
       "break": true
     },
     {

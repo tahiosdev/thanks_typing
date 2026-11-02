@@ -2,6 +2,11 @@
   "identificador_juicio": 1,
   "titulo": "Asesinato Lomba Juicio 1",
   "tildes": false,
+  "historia": [
+    "Jonas Guzmann llega al tribunal acusado por el caso Lombardi. Sin juez presente, cada palabra que registres puede cambiar el rumbo del juicio.",
+    "Piter defendera a Jonas y Zaul Badman intentara demostrar su culpabilidad. Transcribi el acta con cuidado para decidir que version queda escrita."
+  ],
+  "segunda_imagen_desde": 2,
   "lineas": [
 
     {
