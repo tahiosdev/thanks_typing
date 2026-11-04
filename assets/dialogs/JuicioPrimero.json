@@ -2,11 +2,13 @@
   "identificador_juicio": 1,
   "titulo": "Asesinato Lomba Juicio 1",
   "tildes": false,
-  "historia": [
-    "Jonas Guzmann llega al tribunal acusado por el caso Lombardi. Sin juez presente, cada palabra que registres puede cambiar el rumbo del juicio.",
-    "Piter defendera a Jonas y Zaul Badman intentara demostrar su culpabilidad. Transcribi el acta con cuidado para decidir que version queda escrita."
-  ],
-  "segunda_imagen_desde": 2,
+"historia": [
+  "Jonas Gúzmann, un poco loco, fue a comprar al kiosco Lomba y sin querer transfirió un cero de más.",
+  "Al día siguiente fue a reclamarle al kiosquero, Diego Lombardi, quien le negó todo y se rehusó a devolverle la plata.",
+  "Ante esto, Jonas fue a su casa, volvió armado y le disparó al kiosquero, desatando una causa por intento de homicidio.",
+  "Para colmo, el juez falta al juicio, pero deciden seguir igual con Jonas como mecanógrafo, debiendo manipular el acta para salir inocente."
+],
+  "segunda_imagen_desde": 3,
   "lineas": [
 
     {

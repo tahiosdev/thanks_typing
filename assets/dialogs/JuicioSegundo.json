@@ -2,10 +2,12 @@
   "identificador_juicio": 2,
   "titulo": "Venganza Lombardi Juicio 2",
   "tildes": true,
-  "historia": [
-    "Despues del primer juicio, Franco Lombardi busca vengarse de Jonas. El segundo caso vuelve a la sala sin un juez que pueda poner orden.",
-    "Esta vez las declaraciones son aun mas peligrosas. Como mecanografo, tus decisiones en el acta seran parte de la evidencia final."
-  ],
+"historia": [
+  "Tras el disparo recibido, Diego Lombardi cayó en coma y lleva ya dos meses sin despertar en el hospital.",
+  "en busca de venganza por su padre, Franco Lombardi (hijo de Diego) fue a buscar a Jonas e intentó asesinarlo, pero su plan fracasó.",
+  "El fallido atentado termina llevando a ambos nuevamente a los tribunales, con Jonas otra vez a cargo de la máquina de escribir.",
+  "Ahora, el objetivo de Jonas es manipular el discurso de la sala para hundir a Franco y hacer parecer que es totalmente culpable."
+],
   "segunda_imagen_desde": 2,
   "lineas": [
     {
